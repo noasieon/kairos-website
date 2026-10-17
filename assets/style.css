@@ -1044,3 +1044,32 @@ section { padding: 104px 0; scroll-margin-top: 40px; }
 .lv-status.is-ongoing i { background: #ffb547; box-shadow: 0 0 0 0 rgba(255,181,71,.7); animation-name: pulseAmber; }
 .lv-status.is-closed i { background: #9a9086; animation: none; }
 @keyframes pulseAmber { to { box-shadow: 0 0 0 10px rgba(255,181,71,0); } }
+
+/* ---------- hero: 지도 선 · 제목 · 숫자가 한 화면에 들어오도록 높이 기준으로 크기 조정 ---------- */
+.hero { padding-top: clamp(96px, 16vh, 140px); padding-bottom: clamp(32px, 7vh, 96px); }
+.hero .hero-eyebrow { margin-bottom: clamp(8px, 1.6vh, 18px); }
+.hero-title .line-sub { font-size: clamp(32px, min(6.2vw, 7.6vh), 92px); }
+.hero-title .line-main { font-size: clamp(56px, min(12.5vw, 15.5vh), 184px); }
+.hero .lead { font-size: clamp(15px, min(2vw, 2.3vh), 20px); line-height: 1.65; margin: clamp(16px, 3.4vh, 44px) 0 clamp(16px, 3.2vh, 34px); }
+.hero .btn { padding: clamp(11px, 1.6vh, 14px) clamp(18px, 2vw, 24px); }
+.hero-stats { margin-top: clamp(20px, 4.6vh, 64px); padding-top: clamp(12px, 2.4vh, 28px); gap: clamp(20px, 3vw, 40px); }
+.hero-stats strong { font-size: clamp(26px, min(3vw, 4.4vh), 38px); }
+@media (max-height: 820px) { .scroll-cue { display: none; } }
+
+@media (max-width: 1024px) {
+  /* 지도 선 띠 높이를 화면 높이에 맞춰 줄이고, 본문은 그 바로 아래에서 시작 */
+  .hero { --band: clamp(190px, 27svh, 290px); padding-top: calc(var(--band) + 12px); min-height: 100svh; }
+  .route-mob { height: var(--band); }
+}
+@media (max-width: 600px) {
+  .hero .hero-actions { gap: 8px; flex-wrap: nowrap; }
+  .hero .btn { font-size: 14.5px; padding: 11px 16px; white-space: nowrap; }
+  .hero-stats { gap: 18px; flex-wrap: nowrap; }
+  .hero-stats div { font-size: 11.5px; line-height: 1.4; min-width: 0; }
+  .hero-stats strong { font-size: clamp(24px, 3.6vh, 30px); }
+  .hero-stats div:last-child { flex: 1; }
+}
+@media (max-width: 600px) and (max-height: 700px) {
+  .hero .lead { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+}
+@media (max-width: 1024px) { .scroll-cue { display: none; } }
