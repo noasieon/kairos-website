@@ -8,8 +8,8 @@
       "id": "turkiye",
       "name": "튀르키예",
       "en": "Türkiye",
-      "tag": "사역 중심지",
-      "main": true,
+      "tag": "기도 지역",
+      "main": false,
       "image": "assets/img/turkiye.jpg",
       "facts": [
         {
