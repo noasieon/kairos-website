@@ -1,0 +1,135 @@
+# KAIROS 홈페이지 관리자 설정 (Sveltia CMS)
+# 저장하면 GitHub 저장소의 content/*.json 파일이 바뀌고, 홈페이지에 바로 반영됩니다.
+backend:
+  name: github
+  repo: OWNER/kairos-website   # ← GitHub 저장소를 만든 뒤 "계정이름/저장소이름"으로 바꾸세요
+  branch: main
+
+media_folder: assets/img/uploads
+public_folder: /assets/img/uploads
+
+collections:
+  # ---------------------------------------------------------------- 소식
+  - name: news
+    label: 카이로스 소식
+    icon: campaign
+    files:
+      - name: news
+        label: 소식 목록
+        file: content/news.json
+        fields:
+          - name: items
+            label: 소식
+            label_singular: 소식
+            widget: list
+            add_to_top: true
+            summary: "{{fields.date}} · {{fields.title}}"
+            hint: 맨 위에 있는 소식이 메인 페이지의 대표 카드로 표시됩니다.
+            fields:
+              - { name: title, label: 제목, widget: string }
+              - name: category
+                label: 분류
+                widget: select
+                options: [성경 강해, 절기·테마, 레바이츠, 기도]
+              - { name: date, label: 게시일, widget: datetime, time_format: false, format: YYYY-MM-DD, required: false }
+              - { name: url, label: 자세히 보기 링크, widget: string, hint: "노션 글, 유튜브, 인스타그램 등 소식을 누르면 열릴 주소" }
+
+  # ---------------------------------------------------------------- 페이지 내용
+  - name: pages
+    label: 페이지 내용
+    icon: edit_document
+    files:
+      # ---- 레바이츠
+      - name: levites
+        label: 레바이츠 모집 정보
+        file: content/levites.json
+        fields:
+          - { name: title, label: 모집 제목, widget: text, hint: "줄을 바꾸면 홈페이지에서도 줄이 바뀝니다" }
+          - name: status
+            label: 모집 상태
+            widget: select
+            options:
+              - { label: "모집 중 (신청하기 버튼 표시)", value: open }
+              - { label: "훈련 진행 중", value: ongoing }
+              - { label: "모집 마감", value: closed }
+          - { name: status_label, label: 상태 문구, widget: string, hint: "예: 모집 중 · 12월 31일 마감 / 모집 마감 · 4기 훈련 진행 중" }
+          - { name: apply_url, label: 신청서 링크, widget: string, required: false, hint: "모집 상태가 '모집 중'일 때만 신청하기 버튼이 나타납니다" }
+          - { name: period, label: 기간, widget: string }
+          - { name: period_note, label: 기간 보충, widget: string, required: false, hint: "예: 약 3개월" }
+          - { name: place, label: 장소, widget: string }
+          - { name: target, label: 신청 대상, widget: string }
+          - { name: capacity, label: 모집 인원, widget: string }
+          - { name: note, label: 안내 문구, widget: text }
+
+      # ---- 기도 정보
+      - name: prayer
+        label: 기도 정보 (나라별)
+        file: content/prayer.json
+        fields:
+          - name: intro
+            label: 상단 소개 문단
+            widget: list
+            field: { name: paragraph, label: 문단, widget: text }
+            hint: "**굵게**, [링크 글자](주소) 형식을 쓸 수 있습니다"
+          - name: countries
+            label: 나라
+            label_singular: 나라
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { name: name, label: 나라 이름, widget: string }
+              - { name: en, label: 영문 이름, widget: string }
+              - { name: id, label: 주소용 영문 ID, widget: string, hint: "예: turkiye — 메인의 '기도 정보 보기' 링크가 이 ID로 연결됩니다. 바꾸지 않는 것을 권장합니다" }
+              - { name: tag, label: 표시 태그, widget: string, hint: "예: 사역 중심지 / 기도 지역" }
+              - { name: main, label: 사역 중심지로 강조, widget: boolean, default: false }
+              - { name: image, label: 대표 사진, widget: image }
+              - name: facts
+                label: 핵심 숫자
+                widget: list
+                summary: "{{fields.value}} {{fields.label}}"
+                fields:
+                  - { name: value, label: 값, widget: string }
+                  - { name: label, label: 설명, widget: string }
+              - { name: summary, label: 소개 문단, widget: text }
+              - name: sections
+                label: 정보 칸
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { name: title, label: 제목, widget: string }
+                  - { name: body, label: 내용, widget: text, hint: "줄 앞에 '- '를 붙이면 목록이 됩니다. 빈 줄로 문단을 나눕니다" }
+              - { name: verse, label: 성경 구절, widget: text }
+              - { name: verse_ref, label: 구절 출처, widget: string, required: false }
+              - name: prayers
+                label: 기도 제목
+                widget: list
+                field: { name: prayer, label: 기도 제목, widget: text }
+
+      # ---- 메인
+      - name: home
+        label: 메인 문구 · 숫자
+        file: content/home.json
+        fields:
+          - { name: hero_lead, label: 첫 화면 소개 문장, widget: text }
+          - name: stats
+            label: 첫 화면 숫자
+            widget: list
+            summary: "{{fields.value}}{{fields.suffix}} {{fields.label}}"
+            fields:
+              - { name: value, label: 숫자, widget: number, value_type: float }
+              - { name: decimals, label: 소수점 자리수, widget: number, value_type: int, default: 0 }
+              - { name: suffix, label: 단위, widget: string, required: false, hint: "예: 억" }
+              - { name: label, label: 설명, widget: string }
+          - { name: about_statement, label: 팀 소개 대표 문장, widget: text, hint: "**강조할 말**처럼 감싸면 갈색 굵은 글씨로 표시됩니다" }
+          - { name: tv_title, label: 카이로스 TV 제목, widget: text }
+          - { name: tv_desc, label: 카이로스 TV 설명, widget: text }
+          - name: tv_bible_days
+            label: 성경 강해 요일
+            widget: select
+            multiple: true
+            options: [일, 월, 화, 수, 목, 금, 토]
+          - name: tv_theme_day
+            label: 테마 설교 요일
+            widget: select
+            options: [일, 월, 화, 수, 목, 금, 토]
+          - { name: tv_time, label: 업로드 시간, widget: string, hint: "24시간 형식, 예: 05:00" }
