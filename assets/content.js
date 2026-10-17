@@ -77,6 +77,8 @@ window.KairosContent = (function () {
       apply.hidden = !open;
       if (open) apply.href = c.apply_url;
     }
+    var link = $('[data-c="lv_apply_link"]');
+    if (link && c.apply_url) link.href = c.apply_url;
   }
 
   // ---- 기도 정보
