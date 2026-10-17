@@ -13,7 +13,7 @@
       "image": "assets/img/turkiye.jpg",
       "facts": [
         {
-          "value": "8,504만",
+          "value": "8,609만",
           "label": "인구"
         },
         {
@@ -52,7 +52,7 @@
       "image": "assets/img/syria.jpg",
       "facts": [
         {
-          "value": "약 1,800만",
+          "value": "약 2,560만",
           "label": "인구"
         },
         {
@@ -91,7 +91,7 @@
       "image": "assets/img/jordan.jpg",
       "facts": [
         {
-          "value": "약 1천만",
+          "value": "약 1,200만",
           "label": "인구"
         },
         {
@@ -130,7 +130,7 @@
       "image": "assets/img/israel.jpg",
       "facts": [
         {
-          "value": "약 860만",
+          "value": "약 1,020만",
           "label": "인구"
         },
         {
