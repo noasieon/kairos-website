@@ -175,7 +175,7 @@ function initMotion() {
 
   // 스크롤 등장
   if (!reduce && 'IntersectionObserver' in window) {
-    var targets = document.querySelectorAll('.section-head, .values-head > *, .who, .lv-vision p, .lv-apply, .pc-banner, .pc-summary, .pc-col, .pc-pray, .nw-feature, .nw-list li, .rg-item, .rg-stage, .jn-panel, .jn, .vrow, .flip, .join, .about-label, .film, .pillar, .tv-head > *, .week, .value, .not-item, .region-card, .card, .news-list, .news-more, .country-head, .country-body > *, .prayer-intro, .contact-band .wrap');
+    var targets = document.querySelectorAll('.section-head, .values-head > *, .lv-def-item, .cost, .lv-step, .lv-visa, .lv-faq, .who, .lv-vision p, .lv-apply, .pc-banner, .pc-summary, .pc-col, .pc-pray, .nw-feature, .nw-list li, .rg-item, .rg-stage, .jn-panel, .jn, .vrow, .flip, .join, .about-label, .film, .pillar, .tv-head > *, .week, .value, .not-item, .region-card, .card, .news-list, .news-more, .country-head, .country-body > *, .prayer-intro, .contact-band .wrap');
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
     }, { rootMargin: '0px 0px -8% 0px' });
