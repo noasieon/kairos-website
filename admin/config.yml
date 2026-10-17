@@ -2,7 +2,7 @@
 # 저장하면 GitHub 저장소의 content/*.json 파일이 바뀌고, 홈페이지에 바로 반영됩니다.
 backend:
   name: github
-  repo: OWNER/kairos-website   # ← GitHub 저장소를 만든 뒤 "계정이름/저장소이름"으로 바꾸세요
+  repo: noasieon/kairos-website
   branch: main
 
 media_folder: assets/img/uploads
