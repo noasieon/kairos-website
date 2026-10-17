@@ -1151,3 +1151,5 @@ section { padding: 104px 0; scroll-margin-top: 40px; }
   .lv-visa { margin-bottom: 72px; }
   .lv-visa div { flex-direction: column; gap: 4px; }
 }
+.lv-steps { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 960px) { .lv-steps { grid-template-columns: 1fr; } }
