@@ -80,7 +80,7 @@ collections:
               - { name: name, label: 나라 이름, widget: string }
               - { name: en, label: 영문 이름, widget: string }
               - { name: id, label: 주소용 영문 ID, widget: string, hint: "예: turkiye — 메인의 '기도 정보 보기' 링크가 이 ID로 연결됩니다. 바꾸지 않는 것을 권장합니다" }
-              - { name: tag, label: 표시 태그, widget: string, hint: "예: 기도 지역" }
+              - { name: tag, label: 표시 태그, widget: string, required: false, hint: "비워 두면 사진 위에 태그가 나타나지 않습니다" }
               - { name: main, label: 금색으로 강조, widget: boolean, default: false }
               - { name: image, label: 대표 사진, widget: image }
               - name: facts

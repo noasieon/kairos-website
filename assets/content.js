@@ -94,7 +94,7 @@ window.KairosContent = (function () {
       var pts = (k.prayers || []).map(function (p, i) { return '<li><span class="pp-no">0' + (i + 1) + '</span><span>' + esc(p) + '</span></li>'; }).join('');
       return '<section class="pc" id="' + esc(k.id) + '" data-country><div class="wrap">' +
         '<div class="pc-banner"><img src="' + esc(src(k.image)) + '" alt="' + esc(k.name) + ' 풍경" loading="lazy">' +
-        '<div class="pc-banner-in"><span class="pc-tag' + (k.main ? ' main' : '') + '">' + esc(k.tag) + '</span>' +
+        '<div class="pc-banner-in">' + (k.tag ? '<span class="pc-tag' + (k.main ? ' main' : '') + '">' + esc(k.tag) + '</span>' : '') +
         '<h2><span class="pc-en">' + esc(k.en) + '</span><span class="pc-ko">' + esc(k.name) + '</span></h2>' +
         '<span class="pc-facts">' + facts + '</span></div></div>' +
         '<p class="pc-summary">' + esc(k.summary) + '</p>' +

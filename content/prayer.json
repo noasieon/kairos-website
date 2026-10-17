@@ -8,7 +8,7 @@
       "id": "turkiye",
       "name": "튀르키예",
       "en": "Türkiye",
-      "tag": "기도 지역",
+      "tag": "",
       "main": false,
       "image": "assets/img/turkiye.jpg",
       "facts": [
@@ -47,7 +47,7 @@
       "id": "syria",
       "name": "시리아",
       "en": "Syria",
-      "tag": "기도 지역",
+      "tag": "",
       "main": false,
       "image": "assets/img/syria.jpg",
       "facts": [
@@ -86,7 +86,7 @@
       "id": "jordan",
       "name": "요르단",
       "en": "Jordan",
-      "tag": "기도 지역",
+      "tag": "",
       "main": false,
       "image": "assets/img/jordan.jpg",
       "facts": [
@@ -125,7 +125,7 @@
       "id": "israel",
       "name": "이스라엘",
       "en": "Israel",
-      "tag": "기도 지역",
+      "tag": "",
       "main": false,
       "image": "assets/img/israel.jpg",
       "facts": [
