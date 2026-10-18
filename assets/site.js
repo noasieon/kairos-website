@@ -1,3 +1,14 @@
+// 방문 통계 (GoatCounter — 쿠키 없음). 가입 후 받은 코드(예: kairos)를 넣으면 모든 페이지에서 집계가 시작됩니다.
+var GOATCOUNTER_CODE = '';
+(function () {
+  if (!GOATCOUNTER_CODE || /^(localhost|127\.)/.test(location.hostname)) return;
+  var s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://gc.zgo.at/count.js';
+  s.setAttribute('data-goatcounter', 'https://' + GOATCOUNTER_CODE + '.goatcounter.com/count');
+  document.head.appendChild(s);
+})();
+
 // 헤더 배경 전환 + 모바일 메뉴
 function initHeader() {
   var header = document.querySelector('.site-header');

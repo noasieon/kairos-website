@@ -70,6 +70,7 @@ collections:
         label: 기도 정보 (나라별)
         file: content/prayer.json
         fields:
+          - { name: partner_url, label: 기도 동역자 신청서 링크, widget: string, required: false, hint: "구글폼 등 신청서 주소. 비워 두면 카카오톡 상담으로 연결됩니다" }
           - name: intro
             label: 상단 소개 문단
             widget: list
@@ -109,11 +110,31 @@ collections:
                 widget: list
                 field: { name: prayer, label: 기도 제목, widget: text }
 
+      # ---- 후원
+      - name: give
+        label: 후원 안내
+        file: content/give.json
+        fields:
+          - { name: regular_url, label: 정기 후원 신청 링크, widget: string, required: false, hint: "정기 후원 신청서(구글폼 등) 주소. 비워 두면 카카오톡 상담으로 연결됩니다" }
+          - { name: account_bank, label: 은행, widget: string, required: false, hint: "은행과 계좌번호를 모두 넣어야 계좌 안내가 나타납니다" }
+          - { name: account_number, label: 계좌번호, widget: string, required: false }
+          - { name: account_holder, label: 예금주, widget: string, required: false }
+          - { name: note, label: 안내 문구, widget: text, required: false }
+
       # ---- 메인
       - name: home
         label: 메인 문구 · 숫자
         file: content/home.json
         fields:
+          - name: weekly_prayer
+            label: 이번 주 기도 제목
+            widget: object
+            hint: 메인 페이지와 기도 정보 페이지 위쪽에 함께 표시됩니다.
+            fields:
+              - { name: week, label: 주간 표시, widget: string, hint: "예: 10월 셋째 주" }
+              - { name: text, label: 기도 제목, widget: text }
+              - { name: verse, label: 말씀 구절, widget: string, required: false }
+              - { name: verse_ref, label: 구절 출처, widget: string, required: false, hint: "예: 전도서 12:1" }
           - { name: hero_lead, label: 첫 화면 소개 문장, widget: text }
           - name: stats
             label: 첫 화면 숫자

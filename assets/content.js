@@ -127,6 +127,17 @@ window.KairosContent = (function () {
     set('[data-c="tv_theme_text"]', theme ? esc((theme === '일' ? '주일' : theme + '요일') + ' ' + spoken) : '');
   }
 
+  // ---- 이번 주 기도 제목 (메인·기도 정보)
+  function weekly(c) {
+    var w = c.weekly_prayer;
+    if (!w) return;
+    document.querySelectorAll('[data-c="weekly_week"]').forEach(function (el) { el.textContent = w.week || ''; });
+    document.querySelectorAll('[data-c="weekly_text"]').forEach(function (el) { el.textContent = w.text || ''; });
+    document.querySelectorAll('[data-c="weekly_verse"]').forEach(function (el) {
+      el.innerHTML = w.verse ? '“' + esc(w.verse) + '”' + (w.verse_ref ? ' <cite>' + esc(w.verse_ref) + '</cite>' : '') : '';
+    });
+  }
+
   // ---- 레바이츠
   function levites(c) {
     set('[data-c="lv_title"]', br(c.title));
@@ -149,6 +160,8 @@ window.KairosContent = (function () {
 
   // ---- 기도 정보
   function prayer(c) {
+    var pl = $('[data-c="partner_link"]');
+    if (pl && c.partner_url) { pl.href = c.partner_url; pl.textContent = '기도 동역자 신청하기'; }
     set('[data-c="prayer_intro"]', (c.intro || []).map(function (p, i) { return '<p' + (i ? ' class="sub-p2"' : '') + '>' + inline(p) + '</p>'; }).join(''));
     var list = c.countries || [];
     set('[data-c="prayer_tabs"]', list.map(function (k) {
@@ -171,6 +184,26 @@ window.KairosContent = (function () {
         '<div><span class="pc-pray-label">Pray with us<em>함께 기도해 주세요</em></span><ol>' + pts + '</ol></div></div>' +
         '</div></section>';
     }).join(''));
+  }
+
+  // ---- 후원 안내
+  function give(c) {
+    var has = c.account_bank && c.account_number;
+    var acc = $('[data-c="give_account"]');
+    if (acc) acc.hidden = !has;
+    if (has) {
+      set('[data-c="give_bank"]', esc(c.account_bank));
+      set('[data-c="give_number"]', esc(c.account_number));
+      set('[data-c="give_holder"]', esc(c.account_holder || ''));
+      var cp = $('[data-c="give_copy"]');
+      if (cp) cp.addEventListener('click', function () {
+        var done = function () { cp.textContent = '복사됨'; setTimeout(function () { cp.textContent = '복사'; }, 1600); };
+        try { navigator.clipboard.writeText(c.account_number).then(done, function () {}); } catch (e) {}
+      });
+      set('[data-c="give_once"]', '');
+    }
+    if (c.regular_url) set('[data-c="give_regular"]', '<a class="btn btn-yt" href="' + esc(c.regular_url) + '" target="_blank" rel="noopener">정기 후원 신청하기</a>');
+    if (c.note) set('[data-c="give_note"]', esc(c.note));
   }
 
   // ---- 소식
@@ -210,9 +243,10 @@ window.KairosContent = (function () {
     var jobs = [];
     if ($('[data-news-home], [data-news-page]')) jobs.push(get('news').then(news));
     if ($('[data-c="post_body"]')) jobs.push(get('news').then(post));
-    if ($('[data-c="hero_lead"]')) jobs.push(get('home').then(home));
+    if ($('[data-c="hero_lead"], [data-c="weekly_text"]')) jobs.push(get('home').then(function (c) { if ($('[data-c="hero_lead"]')) home(c); weekly(c); }));
     if ($('[data-c="lv_title"]')) jobs.push(get('levites').then(levites));
     if ($('[data-c="prayer_countries"]')) jobs.push(get('prayer').then(prayer));
+    if ($('[data-c="give_note"]')) jobs.push(get('give').then(give));
     // 하나가 실패해도 나머지는 그대로 진행하고, HTML 기본값을 유지
     return Promise.all(jobs.map(function (j) { return j.catch(function (e) { console.warn('content 불러오기 실패:', e.message); }); }));
   }

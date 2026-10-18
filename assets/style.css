@@ -1204,3 +1204,89 @@ section { padding: 104px 0; scroll-margin-top: 40px; }
   .post-nav { grid-template-columns: 1fr; }
   .post-nav-next { text-align: left; }
 }
+
+/* ---------- 이번 주 기도 제목 ---------- */
+.weekly { padding: 56px 0 0; }
+.weekly-card {
+  position: relative; overflow: hidden; isolation: isolate; display: grid; grid-template-columns: 210px minmax(0, 1fr) auto; gap: 24px 40px; align-items: center;
+  padding: 30px 36px; border-radius: 24px; background: var(--night); color: #f3ece0;
+  box-shadow: 0 30px 60px -40px rgba(27,24,20,.6);
+}
+.weekly-card::before { content: ""; position: absolute; z-index: -1; left: -80px; top: -120px; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, rgba(201,160,106,.35), transparent 70%); }
+.weekly-label { display: grid; grid-template-columns: auto 1fr; column-gap: 10px; align-items: center; }
+.weekly-label i { width: 9px; height: 9px; border-radius: 50%; background: #ffb547; box-shadow: 0 0 0 0 rgba(255,181,71,.7); animation: pulseAmber 2s ease-out infinite; }
+.weekly-label span { font-family: "Cinzel", var(--serif); font-weight: 600; font-size: 12px; letter-spacing: .26em; text-transform: uppercase; color: var(--amber-soft); }
+.weekly-label b { grid-column: 1 / -1; font-size: 19px; font-weight: 800; letter-spacing: -0.02em; color: #fff; margin-top: 8px; }
+.weekly-label small { grid-column: 1 / -1; font-size: 13px; color: rgba(243,236,224,.55); margin-top: 2px; }
+.weekly-main { min-width: 0; }
+.weekly-text { margin: 0; font-family: "Hahmlet", var(--serif); font-weight: 500; font-size: clamp(18px, 1.9vw, 23px); line-height: 1.6; letter-spacing: -0.02em; color: #fff; }
+.weekly-verse { margin: 10px 0 0; font-size: 14px; color: rgba(243,236,224,.6); }
+.weekly-verse:empty { display: none; }
+.weekly-verse cite { font-style: normal; color: var(--amber-soft); margin-left: 4px; }
+.weekly-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+.weekly-more { font-size: 14px; font-weight: 600; color: rgba(243,236,224,.75); text-decoration: none; }
+.weekly-more:hover { color: #fff; }
+/* 기도 정보 페이지 히어로 안 */
+.weekly-in-hero { margin-top: 40px; grid-template-columns: 210px minmax(0, 1fr); background: rgba(255,255,255,.05); border: 1px solid rgba(233,201,154,.28); box-shadow: none; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+
+/* ---------- 기도 동역자 ---------- */
+.partner { padding: 96px 0 0; }
+.partner-card { display: grid; grid-template-columns: 1.1fr 1fr; gap: 28px 56px; align-items: start; padding: clamp(28px, 4.5vw, 56px); border-radius: 28px; background: linear-gradient(120deg, #f6e8cf 0%, #e9cb98 50%, #d3a56a 100%); color: var(--night); box-shadow: 0 40px 80px -50px rgba(160,101,46,.7); }
+.partner-head .eyebrow { color: #7a4a1e; }
+.partner-head h2 { font-family: "Hahmlet", var(--serif); font-weight: 600; font-size: clamp(30px, 3.6vw, 46px); letter-spacing: -0.04em; line-height: 1.15; margin-bottom: 14px; }
+.partner-head p { margin: 0; font-size: 16.5px; color: rgba(20,17,14,.75); }
+.partner-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid rgba(20,17,14,.2); }
+.partner-list li { display: flex; justify-content: space-between; gap: 16px; padding: 16px 0; border-bottom: 1px solid rgba(20,17,14,.2); }
+.partner-list b { font-size: 17px; font-weight: 800; }
+.partner-list span { font-size: 14.5px; color: rgba(20,17,14,.7); text-align: right; }
+.partner-actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; }
+.partner-note { font-size: 13.5px; color: rgba(20,17,14,.6); }
+
+@media (max-width: 960px) {
+  .weekly-card, .weekly-in-hero { grid-template-columns: 1fr; gap: 18px; padding: 26px 24px; }
+  .weekly-actions { flex-direction: row; align-items: center; justify-content: space-between; }
+  .partner-card { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .weekly { padding-top: 40px; }
+  .weekly-card { border-radius: 20px; padding: 22px 20px; }
+  .partner { padding-top: 72px; }
+  .partner-card { border-radius: 22px; padding: 26px 20px; margin-inline: -4px; }
+  .partner-list li { flex-direction: column; gap: 2px; }
+  .partner-list span { text-align: left; }
+}
+
+/* 함께하는 방법: 4칸 (2×2) */
+.jn-grid { grid-template-columns: repeat(2, 1fr); }
+.jn:nth-child(odd) { border-left: 0; }
+.jn:nth-child(n+3) { border-top: 1px solid rgba(20,17,14,.18); }
+@media (min-width: 1100px) { .jn-grid { grid-template-columns: repeat(4, 1fr); } .jn:nth-child(n+3) { border-top: 0; } .jn:nth-child(3) { border-left: 1px solid rgba(20,17,14,.18); } }
+@media (max-width: 960px) { .jn-grid { grid-template-columns: 1fr; } .jn:nth-child(n+2) { border-top: 1px solid rgba(20,17,14,.18); } }
+
+/* ---------- 후원 안내 ---------- */
+.give { padding-top: 96px; }
+.give-uses { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-bottom: 104px; }
+.give-use { position: relative; padding-top: 26px; border-top: 1px solid var(--line); }
+.give-use::before { content: ""; position: absolute; left: 0; top: -1px; height: 2px; width: 48px; background: var(--amber); }
+.give-use-no { display: block; font-family: "Hahmlet", var(--serif); font-weight: 200; font-size: 48px; line-height: 1; letter-spacing: -0.04em; color: #c9a06a; margin-bottom: 14px; }
+.give-use-en { font-family: "Cinzel", var(--serif); font-weight: 600; font-size: 12px; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-3); }
+.give-use h3 { font-size: 23px; margin: 6px 0 10px; }
+.give-use p { margin: 0; font-size: 15.5px; color: var(--ink-2); }
+.give-ways-head { margin-bottom: 32px; }
+.give-ways { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.give-way { display: flex; flex-direction: column; gap: 12px; padding: 32px 30px; border-radius: 24px; background: var(--paper); border: 1px solid var(--line); }
+.give-way-dark { background: var(--night); color: #f3ece0; border-color: transparent; }
+.give-way-tag { align-self: flex-start; font-size: 12.5px; font-weight: 800; padding: 5px 12px; border-radius: 99px; background: var(--amber-soft); color: var(--night); }
+.give-way h3 { font-family: "Hahmlet", var(--serif); font-weight: 600; font-size: 28px; letter-spacing: -0.035em; }
+.give-way-dark h3 { color: #fff; }
+.give-way p { margin: 0; font-size: 15.5px; color: var(--ink-2); }
+.give-way-dark p { color: rgba(243,236,224,.72); }
+.give-way-act { margin-top: auto; padding-top: 12px; }
+.give-account[hidden] { display: none; }
+.give-account dl { margin: 6px 0 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.give-account dl div { display: grid; grid-template-columns: 64px 1fr; gap: 10px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.give-account dt { font-size: 13px; font-weight: 700; color: var(--ink-3); }
+.give-account dd { margin: 0; font-weight: 800; font-size: 16.5px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-variant-numeric: tabular-nums; }
+.give-copy { font: inherit; font-size: 12.5px; font-weight: 700; padding: 4px 10px; border-radius: 8px; border: 1px solid var(--line); background: #fff; cursor: pointer; }
+.give-note { margin: 28px 0 0; font-size: 14.5px; color: var(--ink-3); text-align: center; }
+@media (max-width: 960px) { .give-uses, .give-ways { grid-template-columns: 1fr; } .give-uses { margin-bottom: 80px; } }
