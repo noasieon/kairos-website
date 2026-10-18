@@ -21,6 +21,72 @@ window.KairosContent = (function () {
     }).join('');
   };
   var br = function (s) { return esc(s).replace(/\n/g, '<br>'); };
+  // 소식 본문용 마크다운: ## 제목, 목록(- / 1.), > 인용·안내 상자, ![사진](주소), @[youtube](ID), ---
+  var postInline = function (s) {
+    var links = [];
+    var t = String(s || '').replace(/\[([^\]]*)\]\(([^)\s]+)\)/g, function (_, label, url) {
+      links.push('<a href="' + esc(url) + '" target="_blank" rel="noopener">' + esc(label) + '</a>');
+      return '\u0000' + (links.length - 1) + '\u0000';
+    });
+    t = esc(t)
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/(^|[\s(])_([^_\n]+?)_(?=[\s).,!?]|$)/g, '$1<em>$2</em>');
+    return t.replace(/\u0000(\d+)\u0000/g, function (_, i) { return links[+i]; });
+  };
+  var mdPost = function (text) {
+    var lines = String(text || '').split('\n'), html = '', i = 0;
+    var isImg = function (l) { return /^!\[[^\]]*\]\([^)]+\)\s*$/.test(l.trim()); };
+    while (i < lines.length) {
+      var l = lines[i];
+      if (!l.trim()) { i++; continue; }
+      if (/^---\s*$/.test(l)) { html += '<hr>'; i++; continue; }
+      var h = l.match(/^(#{2,3})\s+(.*)$/);
+      if (h) { html += '<h' + h[1].length + '>' + postInline(h[2]) + '</h' + h[1].length + '>'; i++; continue; }
+      var yt = l.trim().match(/^@\[youtube\]\(([A-Za-z0-9_-]{6,})\)$/);
+      if (yt) {
+        html += '<div class="post-video"><iframe src="https://www.youtube-nocookie.com/embed/' + yt[1] + '?rel=0" title="영상" loading="lazy" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>';
+        i++; continue;
+      }
+      if (isImg(l)) {
+        var imgs = [];
+        while (i < lines.length && (isImg(lines[i]) || (!lines[i].trim() && i + 1 < lines.length && isImg(lines[i + 1])))) {
+          var m = lines[i].trim().match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+          if (m) imgs.push(m);
+          i++;
+        }
+        html += '<div class="post-gallery n' + Math.min(imgs.length, 3) + '">' + imgs.map(function (m) {
+          return '<figure><img src="' + esc(src(m[2])) + '" alt="' + esc(m[1]) + '" loading="lazy">' + (m[1] ? '<figcaption>' + esc(m[1]) + '</figcaption>' : '') + '</figure>';
+        }).join('') + '</div>';
+        continue;
+      }
+      if (/^>/.test(l)) {
+        var q = [];
+        while (i < lines.length && /^>/.test(lines[i])) { q.push(lines[i].replace(/^>\s?/, '')); i++; }
+        html += '<blockquote class="post-note">' + mdPost(q.join('\n')) + '</blockquote>';
+        continue;
+      }
+      if (/^\s*(-|\d+\.)\s+/.test(l)) {
+        var stack = [], out = '';
+        while (i < lines.length && /^\s*(-|\d+\.)\s+/.test(lines[i])) {
+          var mm = lines[i].match(/^(\s*)(-|\d+\.)\s+(.*)$/), lvl = Math.floor(mm[1].length / 2), tag = mm[2] === '-' ? 'ul' : 'ol';
+          while (stack.length > lvl + 1) out += '</li></' + stack.pop() + '>';
+          if (stack.length === lvl + 1 && stack[lvl] !== tag) { out += '</li></' + stack.pop() + '>'; }
+          if (stack.length < lvl + 1) { out += '<' + tag + '><li>'; stack.push(tag); }
+          else out += '</li><li>';
+          out += postInline(mm[3]);
+          i++;
+        }
+        while (stack.length) out += '</li></' + stack.pop() + '>';
+        html += out;
+        continue;
+      }
+      var para = [];
+      while (i < lines.length && lines[i].trim() && !/^(#{2,3}\s|>|---\s*$|\s*(-|\d+\.)\s+|@\[youtube\])/.test(lines[i]) && !isImg(lines[i])) { para.push(postInline(lines[i])); i++; }
+      if (para.length) html += '<p>' + para.join('<br>') + '</p>';
+      else i++;
+    }
+    return html;
+  };
   var src = function (p) { return String(p || '').replace(/^\//, ''); };
   var get = function (name) {
     return fetch('content/' + name + '.json', { cache: 'no-cache' }).then(function (r) {
@@ -110,13 +176,40 @@ window.KairosContent = (function () {
   // ---- 소식
   function news(c) {
     window.KAIROS_NEWS = (c.items || []).map(function (n) {
-      return { t: n.title, c: n.category, d: (n.date || '').slice(0, 10), u: n.url };
+      var inside = n.body && n.slug;
+      return { t: n.title, c: n.category, d: (n.date || '').slice(0, 10), u: inside ? 'news-post.html?id=' + encodeURIComponent(n.slug) : n.url, ext: !inside };
     });
+  }
+
+  // ---- 소식 글 한 편
+  function post(c) {
+    var items = c.items || [], id = new URLSearchParams(location.search).get('id');
+    var k = -1;
+    items.forEach(function (n, i) { if (n.slug === id) k = i; });
+    if (k < 0) {
+      set('[data-c="post_title"]', '소식을 찾을 수 없습니다');
+      set('[data-c="post_body"]', '<p>주소가 바뀌었거나 삭제된 소식입니다. <a href="news.html">소식 목록</a>에서 다시 찾아 주세요.</p>');
+      return;
+    }
+    var n = items[k];
+    document.title = n.title + ' · KAIROS';
+    set('[data-c="post_title"]', esc(n.title));
+    set('[data-c="post_cat"]', esc(n.category));
+    var d = (n.date || '').slice(0, 10);
+    set('[data-c="post_date"]', d ? esc(d.replace(/-/g, '.')) : '');
+    set('[data-c="post_body"]', mdPost(n.body) || '<p>본문이 없습니다.</p>');
+    var link = function (m, dir) {
+      if (!m || !m.slug || !m.body) return '<span></span>';
+      return '<a class="post-nav-' + dir + '" href="news-post.html?id=' + encodeURIComponent(m.slug) + '"><small>' + (dir === 'prev' ? '이전 소식' : '다음 소식') + '</small><b>' + esc(m.title) + '</b></a>';
+    };
+    // 목록은 최신순: 앞(k-1)이 더 최근 글
+    set('[data-c="post_nav"]', link(items[k + 1], 'prev') + link(items[k - 1], 'next'));
   }
 
   function load() {
     var jobs = [];
     if ($('[data-news-home], [data-news-page]')) jobs.push(get('news').then(news));
+    if ($('[data-c="post_body"]')) jobs.push(get('news').then(post));
     if ($('[data-c="hero_lead"]')) jobs.push(get('home').then(home));
     if ($('[data-c="lv_title"]')) jobs.push(get('levites').then(levites));
     if ($('[data-c="prayer_countries"]')) jobs.push(get('prayer').then(prayer));

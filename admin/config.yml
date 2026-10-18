@@ -32,7 +32,11 @@ collections:
                 widget: select
                 options: [성경 강해, 절기·테마, 레바이츠, 기도]
               - { name: date, label: 게시일, widget: datetime, time_format: false, format: YYYY-MM-DD, required: false }
-              - { name: url, label: 자세히 보기 링크, widget: string, hint: "노션 글, 유튜브, 인스타그램 등 소식을 누르면 열릴 주소" }
+              - { name: slug, label: 글 주소 ID, widget: string, required: false, hint: "영문·숫자만, 예: 2027-levites — 본문을 쓰면 꼭 채워 주세요 (news-post.html?id=이 값)" }
+              - { name: cover, label: 대표 사진, widget: image, required: false }
+              - { name: body, label: 본문, widget: markdown, required: false, hint: "본문이 있으면 홈페이지 안의 글로 열립니다. 유튜브는 한 줄에 @[youtube](영상ID) 로 넣을 수 있어요" }
+              - { name: url, label: 외부 링크, widget: string, required: false, hint: "본문이 없을 때만 사용 — 누르면 이 주소(인스타그램 등)로 이동합니다" }
+              - { name: notion_url, label: 예전 노션 주소, widget: hidden, required: false }
 
   # ---------------------------------------------------------------- 페이지 내용
   - name: pages

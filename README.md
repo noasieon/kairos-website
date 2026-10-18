@@ -7,6 +7,7 @@
 - `prayer.html` — 왕의 대로 기도 정보 (튀르키예 · 시리아 · 요르단 · 이스라엘)
 - `levites.html` — 카이로스 레바이츠 훈련 안내
 - `news.html` — 소식 전체 목록 (분류 필터 · 검색)
+- `news-post.html?id=…` — 소식 글 한 편 (content/news.json의 본문을 그림, 사진은 assets/img/news/)
 - `admin/` — 관리자 페이지 (Sveltia CMS)
 - `content/` — 관리자 페이지에서 고치는 내용 파일
   - `news.json` 소식 · `levites.json` 레바이츠 모집 정보 · `prayer.json` 나라별 기도 정보 · `home.json` 메인 문구·숫자

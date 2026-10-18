@@ -31,7 +31,7 @@ function initNews() {
 
   function feature(f) {
     var fd = parts(f.d);
-    return '<a class="nw-feature" href="' + f.u + '" target="_blank" rel="noopener">' +
+    return '<a class="nw-feature" href="' + f.u + '"' + (f.ext ? ' target="_blank" rel="noopener"' : '') + '>' +
       '<span class="nw-glow" aria-hidden="true"></span>' +
       '<span class="nw-meta"><span class="nw-new">Latest</span><span class="nw-cat">' + f.c + '</span></span>' +
       '<span class="nw-bigdate">' + (fd ? '<b>' + fd.d + '</b><span>' + fd.m + '<br>' + fd.y + '</span>' : '') + '</span>' +
@@ -40,7 +40,7 @@ function initNews() {
   }
   function row(n) {
     var p = parts(n.d);
-    return '<li><a href="' + n.u + '" target="_blank" rel="noopener">' +
+    return '<li><a href="' + n.u + '"' + (n.ext ? ' target="_blank" rel="noopener"' : '') + '>' +
       '<span class="nw-date">' + (p ? '<b>' + p.d + '</b><span>' + p.m + ' ' + p.y + '</span>' : '<b class="dash">—</b><span>ARCHIVE</span>') + '</span>' +
       '<span class="nw-body"><span class="nw-cat">' + n.c + '</span><span class="nw-title">' + esc(n.t) + '</span></span>' +
       arrow + '</a></li>';
