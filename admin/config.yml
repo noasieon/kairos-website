@@ -9,6 +9,22 @@ media_folder: assets/img/uploads
 public_folder: /assets/img/uploads
 
 collections:
+  # ---------------------------------------------------------------- 이번 주 기도 제목 (매주)
+  - name: weekly
+    label: 이번 주 기도 제목
+    icon: volunteer_activism
+    description: 메인 페이지와 기도 정보 페이지 위쪽에 함께 표시됩니다. 매주 이 한 곳만 고치면 됩니다.
+    files:
+      - name: weekly
+        label: ✏️ 이번 주 기도 제목 고치기
+        file: content/weekly.json
+        fields:
+          - { name: date, label: 날짜, widget: datetime, time_format: false, format: YYYY-MM-DD, hint: "이번 주에 해당하는 날짜를 고르면 '10월 셋째 주'처럼 자동으로 표시됩니다" }
+          - { name: week, label: 주간 표시 직접 쓰기, widget: string, required: false, hint: "비워 두면 날짜로 자동 표시 — 예: 성탄 주간처럼 따로 쓰고 싶을 때만 채우세요" }
+          - { name: text, label: 기도 제목, widget: text, hint: "한두 문장이 가장 잘 읽힙니다" }
+          - { name: verse, label: 말씀 구절, widget: string, required: false, hint: "비워 두면 구절 줄이 숨겨집니다" }
+          - { name: verse_ref, label: 구절 출처, widget: string, required: false, hint: "예: 전도서 12:1" }
+
   # ---------------------------------------------------------------- 소식
   - name: news
     label: 카이로스 소식
@@ -126,15 +142,6 @@ collections:
         label: 메인 문구 · 숫자
         file: content/home.json
         fields:
-          - name: weekly_prayer
-            label: 이번 주 기도 제목
-            widget: object
-            hint: 메인 페이지와 기도 정보 페이지 위쪽에 함께 표시됩니다.
-            fields:
-              - { name: week, label: 주간 표시, widget: string, hint: "예: 10월 셋째 주" }
-              - { name: text, label: 기도 제목, widget: text }
-              - { name: verse, label: 말씀 구절, widget: string, required: false }
-              - { name: verse_ref, label: 구절 출처, widget: string, required: false, hint: "예: 전도서 12:1" }
           - { name: hero_lead, label: 첫 화면 소개 문장, widget: text }
           - name: stats
             label: 첫 화면 숫자

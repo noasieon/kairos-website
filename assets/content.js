@@ -127,12 +127,18 @@ window.KairosContent = (function () {
     set('[data-c="tv_theme_text"]', theme ? esc((theme === '일' ? '주일' : theme + '요일') + ' ' + spoken) : '');
   }
 
-  // ---- 이번 주 기도 제목 (메인·기도 정보)
-  function weekly(c) {
-    var w = c.weekly_prayer;
-    if (!w) return;
-    document.querySelectorAll('[data-c="weekly_week"]').forEach(function (el) { el.textContent = w.week || ''; });
-    document.querySelectorAll('[data-c="weekly_text"]').forEach(function (el) { el.textContent = w.text || ''; });
+  // ---- 이번 주 기도 제목 (메인·기도 정보) — content/weekly.json
+  var weekLabel = function (w) {
+    if (w.week) return w.week;
+    var m = String(w.date || '').match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (!m) return '';
+    var nth = ['첫째', '둘째', '셋째', '넷째', '다섯째'][Math.ceil(+m[3] / 7) - 1];
+    return (+m[2]) + '월 ' + nth + ' 주';
+  };
+  function weekly(w) {
+    if (!w || !w.text) return;
+    document.querySelectorAll('[data-c="weekly_week"]').forEach(function (el) { el.textContent = weekLabel(w); });
+    document.querySelectorAll('[data-c="weekly_text"]').forEach(function (el) { el.textContent = w.text; });
     document.querySelectorAll('[data-c="weekly_verse"]').forEach(function (el) {
       el.innerHTML = w.verse ? '“' + esc(w.verse) + '”' + (w.verse_ref ? ' <cite>' + esc(w.verse_ref) + '</cite>' : '') : '';
     });
@@ -243,7 +249,8 @@ window.KairosContent = (function () {
     var jobs = [];
     if ($('[data-news-home], [data-news-page]')) jobs.push(get('news').then(news));
     if ($('[data-c="post_body"]')) jobs.push(get('news').then(post));
-    if ($('[data-c="hero_lead"], [data-c="weekly_text"]')) jobs.push(get('home').then(function (c) { if ($('[data-c="hero_lead"]')) home(c); weekly(c); }));
+    if ($('[data-c="hero_lead"]')) jobs.push(get('home').then(home));
+    if ($('[data-c="weekly_text"]')) jobs.push(get('weekly').then(weekly));
     if ($('[data-c="lv_title"]')) jobs.push(get('levites').then(levites));
     if ($('[data-c="prayer_countries"]')) jobs.push(get('prayer').then(prayer));
     if ($('[data-c="give_note"]')) jobs.push(get('give').then(give));
