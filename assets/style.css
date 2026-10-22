@@ -1294,3 +1294,7 @@ section { padding: 104px 0; scroll-margin-top: 40px; }
 /* 문의 안내 문구: 넓은 화면에서는 지정한 위치에서 줄바꿈 */
 .contact-band p.contact-lead { max-width: 52em; }
 @media (max-width: 900px) { .br-wide { display: none; } }
+
+/* 기도 동역자 박스 아래 여백 (사진 배너와 붙지 않게) */
+.partner { padding-bottom: 96px; }
+@media (max-width: 600px) { .partner { padding-bottom: 64px; } }

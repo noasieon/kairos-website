@@ -167,7 +167,7 @@ window.KairosContent = (function () {
   // ---- 기도 정보
   function prayer(c) {
     var pl = $('[data-c="partner_link"]');
-    if (pl && c.partner_url) { pl.href = c.partner_url; pl.textContent = '기도 동역자 신청하기'; }
+    if (pl && c.partner_url) pl.href = c.partner_url;
     set('[data-c="prayer_intro"]', (c.intro || []).map(function (p, i) { return '<p' + (i ? ' class="sub-p2"' : '') + '>' + inline(p) + '</p>'; }).join(''));
     var list = c.countries || [];
     set('[data-c="prayer_tabs"]', list.map(function (k) {
