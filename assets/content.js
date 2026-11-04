@@ -25,7 +25,7 @@ window.KairosContent = (function () {
   var postInline = function (s) {
     var links = [];
     var t = String(s || '').replace(/\[([^\]]*)\]\(([^)\s]+)\)/g, function (_, label, url) {
-      links.push('<a href="' + esc(url) + '" target="_blank" rel="noopener">' + esc(label) + '</a>');
+      links.push('<a href="' + esc(url) + '" target="_blank" rel="noopener">' + esc(label).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>') + '</a>');
       return '\u0000' + (links.length - 1) + '\u0000';
     });
     t = esc(t)
