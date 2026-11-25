@@ -14,6 +14,7 @@ PAGES = {
     'levites.html': ('카이로스 레바이츠 · KAIROS', '레위 지파의 정체성으로 부흥의 불을 가져오는 왕 같은 제사장을 세우는 3개월 제자 훈련.', 'og-levites.jpg', 'levites.html'),
     'news.html': ('카이로스 소식 · KAIROS', '카이로스의 성경 강해, 절기 말씀, 레바이츠 훈련, 기도 소식.', 'og-home.jpg', 'news.html'),
     'news-post.html': ('카이로스 소식 · KAIROS', '카이로스의 성경 강해, 절기 말씀, 레바이츠 훈련, 기도 소식.', 'og-home.jpg', 'news.html'),
+    'bible.html': ('카이로스 바이블 · KAIROS', '여러 언어로 성경을 읽고 찾아볼 수 있는 카이로스의 온라인 성경.', 'og-home.jpg', 'bible.html'),
     'give.html': ('후원 안내 · KAIROS', '왕의 대로 지역의 복음 사역과 제자 훈련에 기도와 후원으로 함께해 주세요.', 'og-home.jpg', 'give.html'),
 }
 

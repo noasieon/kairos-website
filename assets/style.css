@@ -1298,3 +1298,14 @@ section { padding: 104px 0; scroll-margin-top: 40px; }
 /* 기도 동역자 박스 아래 여백 (사진 배너와 붙지 않게) */
 .partner { padding-bottom: 96px; }
 @media (max-width: 600px) { .partner { padding-bottom: 64px; } }
+
+/* ---------- 카이로스 바이블 ---------- */
+.sub-hero-compact { padding-bottom: 56px; }
+.bible-embed { padding: 40px 0 88px; }
+.bible-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+.bible-url { font-family: var(--accent); font-style: italic; font-size: 20px; font-weight: 600; color: var(--ink-3); }
+.bible-frame { border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; background: var(--paper); box-shadow: 0 18px 50px -30px rgba(27,24,20,.35); }
+.bible-frame iframe { display: block; width: 100%; height: min(82vh, 900px); min-height: 560px; border: 0; }
+.bible-note { margin: 14px 0 0; font-size: 14px; color: var(--ink-3); }
+.bible-note a { color: var(--amber); }
+@media (max-width: 720px) { .bible-embed { padding: 24px 0 64px; } .bible-frame iframe { height: 78vh; min-height: 480px; } }
