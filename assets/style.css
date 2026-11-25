@@ -37,7 +37,7 @@ p { margin: 0 0 1em; }
 
 .wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
 .eyebrow {
-  font-family: var(--accent); font-style: italic; font-size: 21px; font-weight: 600; letter-spacing: 0.01em;
+  font-family: "Cormorant Garamond", "Hahmlet", Georgia, serif; font-style: italic; font-synthesis-style: none; font-size: 21px; font-weight: 500; letter-spacing: 0.01em;
   color: var(--amber); margin-bottom: 10px; display: block; line-height: 1.3;
 }
 
