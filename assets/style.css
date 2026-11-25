@@ -1309,3 +1309,26 @@ section { padding: 104px 0; scroll-margin-top: 40px; }
 .bible-note { margin: 14px 0 0; font-size: 14px; color: var(--ink-3); }
 .bible-note a { color: var(--amber); }
 @media (max-width: 720px) { .bible-embed { padding: 24px 0 64px; } .bible-frame iframe { height: 78vh; min-height: 480px; } }
+
+/* ---------- 홈: 카이로스 바이블 ---------- */
+.bible-home { padding: 72px 0 96px; }
+.bh-card { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(28px, 5vw, 72px); align-items: center; background: var(--paper); border: 1px solid var(--line); border-radius: 32px; padding: clamp(28px, 5vw, 64px); }
+.bh-text { min-width: 0; }
+.bh-text h2 { font-size: clamp(30px, 4vw, 44px); }
+.bh-text p { margin: 18px 0 0; color: var(--ink-2); font-size: 17px; max-width: 32em; }
+.bh-langs { list-style: none; padding: 0; margin: 22px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.bh-langs li { font-size: 13.5px; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink-2); background: var(--ivory); }
+.bh-langs li:first-child { border-color: var(--amber); color: var(--amber); font-weight: 600; }
+.bh-btns { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 30px; }
+.bh-ext { color: var(--ink-3); font-family: var(--accent); font-style: italic; font-size: 19px; font-weight: 600; text-decoration: none; }
+.bh-ext:hover { color: var(--amber); }
+.bh-index { display: block; min-width: 0; text-decoration: none; color: var(--ink); background: var(--ivory); border-radius: 20px; padding: 26px 28px; box-shadow: 0 24px 60px -36px rgba(27,24,20,.45); transition: transform .3s ease, box-shadow .3s ease; }
+.bh-index:hover { transform: translateY(-4px); box-shadow: 0 30px 70px -36px rgba(27,24,20,.55); }
+.bh-index-head { display: block; font-size: 12.5px; letter-spacing: .08em; color: var(--ink-3); font-weight: 600; margin-bottom: 6px; }
+.bh-index ol { list-style: none; padding: 0; margin: 0 0 18px; }
+.bh-index ol:last-child { margin-bottom: 0; }
+.bh-index li { display: flex; justify-content: space-between; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--line); font-family: var(--serif); font-size: 16.5px; }
+.bh-index li b { font-family: var(--sans); font-weight: 500; font-size: 13px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.bh-index li b::after { content: "장"; margin-left: 2px; }
+@media (prefers-reduced-motion: reduce) { .bh-index, .bh-index:hover { transition: none; transform: none; } }
+@media (max-width: 860px) { .bh-card { grid-template-columns: 1fr; border-radius: 24px; } .bible-home { padding: 48px 0 64px; } }
