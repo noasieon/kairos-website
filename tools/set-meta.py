@@ -5,7 +5,7 @@
 import os
 import re
 
-BASE = 'https://noasieon.github.io/kairos-website/'
+BASE = 'https://kairosmission.kr/'
 SITE = "KAIROS · King's Highway Mission"
 
 PAGES = {
